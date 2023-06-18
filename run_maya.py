@@ -27,10 +27,15 @@ class MyWidget(QtWidgets.QDialog):
         self.label1 = QtWidgets.QLabel("Hello World 1")
         self.label2 = QtWidgets.QLabel("Hello World 2")
 
+        # Create the list widget
         self.list_widget = QtWidgets.QListWidget()
         self.list_widget.addItem("Item 1")
         self.list_widget.addItem("Item 2")
         self.list_widget.addItem("Item 3")
+
+        # Create the add and remove buttons
+        self.add_button = QtWidgets.QPushButton("Add Item")
+        self.remove_button = QtWidgets.QPushButton("Remove Item")
 
         self.button = QtWidgets.QPushButton("Execute")
 
@@ -44,10 +49,20 @@ class MyWidget(QtWidgets.QDialog):
 
         main_layout.addLayout(label_layout)
         main_layout.addWidget(self.list_widget)
+
+        button_layout = QtWidgets.QHBoxLayout(self)
+        button_layout.addWidget(self.add_button)
+        button_layout.addWidget(self.remove_button)
+
+        main_layout.addLayout(button_layout)
         main_layout.addWidget(self.button)
 
     def create_connections(self):
         '''Create your connections here'''
+        # Connect the buttons to their respective functions
+        self.add_button.clicked.connect(lambda: self.list_widget.addItem("New Item"))
+        self.remove_button.clicked.connect(lambda: self.list_widget.takeItem(self.list_widget.currentRow()))
+
         self.button.clicked.connect(self.execute)
 
     def execute(self):
