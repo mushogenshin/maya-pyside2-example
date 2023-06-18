@@ -50,7 +50,41 @@ class MyWidget(QtWidgets.QDialog):
         super(MyWidget, self).__init__(parent)
         self.setWindowTitle("My Widget")
 
-        # add more initialization code here as needed
+        self.create_widgets()
+        self.create_layout()
+        self.create_connections()
+
+    def create_widgets(self):
+        '''Create your widgets here'''
+        self.label1 = QtWidgets.QLabel("Hello World 1")
+        self.label2 = QtWidgets.QLabel("Hello World 2")
+
+        self.list_widget = QtWidgets.QListWidget()
+        self.list_widget.addItem("Item 1")
+        self.list_widget.addItem("Item 2")
+        self.list_widget.addItem("Item 3")
+
+        self.button = QtWidgets.QPushButton("Execute")
+
+    def create_layout(self):
+        '''Create your layouts here'''
+        main_layout = QtWidgets.QVBoxLayout(self)
+
+        label_layout = QtWidgets.QHBoxLayout(self)
+        label_layout.addWidget(self.label1)
+        label_layout.addWidget(self.label2)
+
+        main_layout.addLayout(label_layout)
+        main_layout.addWidget(self.list_widget)
+        main_layout.addWidget(self.button)
+
+    def create_connections(self):
+        '''Create your connections here'''
+        self.button.clicked.connect(self.execute)
+
+    def execute(self):
+        print("TODO: Execute something here")
+        pass
 
 def main():
     if MAYA:
